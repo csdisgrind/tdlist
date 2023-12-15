@@ -2,9 +2,6 @@ import express from "express";
 import path from 'path'
 import {Client} from 'pg'
 import {env} from './env'
-// import {client} from 'pg'
-
-
 
 const app = express()
 
@@ -13,12 +10,15 @@ export const client = new Client({
     user: env.DB_USERNAME,
     password: env.DB_PASSWORD,
 })
+client.connect()
 
 app.get('/',(req,res)=>{
     res.sendFile(path.resolve('public/html', 'home.html'))
 });
-app.get('/test',async (req,res)=>{
+app.get('/todo',async (req,res)=>{
     try {
+        console.log("getting to do list");
+        
         //other code
         let result = await client.query (
             'select * from to_do_list'
@@ -30,9 +30,11 @@ app.get('/test',async (req,res)=>{
         res.json({err:"internal server error"})
     }
 });
-app.post('/test',async (req,res)=>{
+app.post('/todo',async (req,res)=>{
     try{
+        
         //other code
+        let {name} = req.query
         let result = await client.query(/* sql */
             `insert into
             to_do_list (name, is_archived)

@@ -4,8 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
+    <!-- Import Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
 </head>
 <body>
-    <h1>To Do</h1>
+    <h1>My To Do Lists</h1>
+    <button id="new-list" class="btn btn-light">Create New List</button>
+    <button id="new-item" class="btn btn-light">Add New To Do Item</button>
+    <div class="content-container">
+        <div class="new-list-form">
+            <dialog id="newListDialog">
+                <h3>Add a New List</h3>
+                <form
+                    action="/list"
+                    method="POST"
+                    enctype="application/x-www-form-urlencoded"
+                    id="newListForm"
+                    onsubmit="confirmCreateList(event)"
+                >
+                    <div id="addListContent">
+                        <label>
+                            Please Enter a List Name:
+                            <input type="text" id="listName" />
+                        </label>
+                    </div>
+                    <input type="submit" id="submitNewListForm" />
+                    <button onclick="newListDialog.close()">Close</button>
+                </form>
+            </dialog>
+        </div>
+        <div class="new-item-form"></div>
+    </div>
+    <script src="/js/todo.js"></script>
 </body>
 </html>
