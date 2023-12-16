@@ -43,7 +43,27 @@
                 </form>
             </dialog>
         </div>
-        <div class="new-item-form"></div>
+        <div class="new-item-form">
+            <dialog id="newItemDialog">
+                <h3>Add a New To Do Item</h3>
+                <form
+                    action="/item"
+                    method="POST"
+                    enctype="application/x-www-form-urlencoded"
+                    id="newItemForm"
+                    onsubmit="confirmCreateItem(event)"
+                >
+                    <div id="addItemContent">
+                        <label>
+                            Please enter a new item to do:
+                            <input type="text" id="itemName" />
+                        </label>
+                    </div>
+                    <input type="submit" id="submitNewItemForm" />
+                    <button onclick="newItemDialog.close()">Close</button>
+                </form>
+            </dialog>
+        </div>
     </div>
     <script src="/js/todo.js"></script>
 </body>
