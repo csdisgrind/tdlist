@@ -1,0 +1,21 @@
+/* Buffer Line */
+@keyframes sliding-todo-div {
+  1% {
+    opacity: 0;
+    transform: translateX(180px);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.animated-sliding-todo-div {
+  animation-name: sliding-todo-div;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+}
