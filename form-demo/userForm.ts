@@ -3,7 +3,11 @@ import { Request, Response, NextFunction } from "express";
 
 function userForm(req: Request, res: Response, next: NextFunction) {
   const loginForm = req.body;
-  if (loginForm.name && typeof loginForm.name === "string") {
+  if (
+    loginForm.name &&
+    typeof loginForm.name === "string" &&
+    loginForm.name.trim() !== ""
+  ) {
     next();
     return;
   }

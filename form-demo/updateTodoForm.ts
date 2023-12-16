@@ -10,7 +10,7 @@ async function updateTodoForm(req: Request, res: Response, next: NextFunction) {
 
   req.body.id = parseInt(todoID as string);
   const { taskName, isCompleted } = req.body;
-  if (taskName && typeof taskName === "string") {
+  if (taskName && typeof taskName === "string" && taskName.trim() !== "") {
     next();
     return;
   } else if (isCompleted !== undefined && typeof isCompleted === "boolean") {
