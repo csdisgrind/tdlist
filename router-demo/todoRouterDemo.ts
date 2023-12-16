@@ -37,8 +37,12 @@ todoRouterDemo.put("/", updateTodoForm, async (req: Request, res: Response) => {
     return;
   }
 
+  const { taskName, isCompleted } = todoInfo;
   try {
-    await todoRepository.updateTodo(todoInfo, id);
+    await todoRepository.updateTodo(
+      { task_name: taskName, is_completed: isCompleted },
+      id
+    );
     res.json({});
     return;
   } catch (error) {

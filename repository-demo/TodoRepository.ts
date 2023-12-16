@@ -30,15 +30,19 @@ class TodoRepository {
   }
 
   async updateTodo(newTodoInfo: Partial<TodoInfo>, id: number) {
-    const todoIndex = this.data.reduce((acc, todo) => {
-      return todo.id === id ? todo.id - 1 : acc;
-    }, -1);
+    const { task_name, is_completed } = newTodoInfo;
+    const todoIndex =
+      this.data.reduce((acc, todo) => {
+        return todo.id === id ? todo.id : acc;
+      }, -1) - 1;
     if (todoIndex === -1) {
       throw new Error("Invalid Todo");
     }
     this.data = [
       ...this.data.slice(0, todoIndex),
-      { ...this.data[todoIndex], ...newTodoInfo },
+      task_name
+        ? ({ ...this.data[todoIndex], task_name } as TodoData)
+        : ({ ...this.data[todoIndex], is_completed } as TodoData),
       ...this.data.slice(todoIndex + 1),
     ];
     await this.updateStorage();
