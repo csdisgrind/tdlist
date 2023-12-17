@@ -21,7 +21,7 @@ async function confirmCreateList(event){
         // when use body: new FormData(form), JSON.stringify
         // body: new URLSearchParams(new FormData(form)),
         // body: new FormData(form),
-        body: JSON.stringify(Object.fromEntries(form))
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
     });
     console.log('lol', {response})
     // console.log('222', response.body)
