@@ -1,0 +1,32 @@
+-- todo.js
+-> add-role.js 204 & student-profile 20 why no content-type?
+
+ans:
+when you are submitting forms, you should not define the content-type,
+this is because the size of formData is not consistent, the AJAX req cant be certain how much data it is sending,
+this may cause extra space reserved or incomplete data transfer
+
+-> When use body : new FormData(form), JSON.stringify
+
+ans: 
+if you are using the form element, and wish to wrap all inputs within the form as one submission. 
+FormData is needed, but the server will need to use formidable or other libraries to decode it.
+JSON.stringify is simply converting any input to a JSON string, therefore, 
+any other type of body data can be sent to the server this way.
+
+My recommendation : 
+submitting forms with any files => FormData
+the rest => JSON.stringify
+
+-> result.err / result.error
+ans: 
+this simply depends on what you res.json() in the server
+check server.ts try-catch, you used 'err' for this project 
+
+-- server.ts
+-> understand why this api needs to match with the form action api
+
+ans : 
+the form action is defining the API route to handle its req
+
+
