@@ -4,6 +4,7 @@ import {Client} from 'pg'
 import {env} from './env'
 
 const app = express()
+app.use(express.json());
 
 export const client = new Client({
     database: env.DB_NAME,
@@ -37,9 +38,10 @@ app.get('/todo',async (req,res)=>{
 app.post('/api/list',async (req,res)=> {
     try{
         //other code
-        // console.log('aa', {req})
+        console.log('aa', req)
         console.log('bb', req.query)
-        let {name} = req.query
+        console.log('by', req.body)
+        let {name} = req.body
         console.log('gg', {name})
         let result = await client.query(/* sql */
             `insert into
@@ -49,7 +51,7 @@ app.post('/api/list',async (req,res)=> {
             `, 
             [name, false]
         );
-        console.log('xcx', {result})
+        // console.log('xcx', {result})
         const id = result.rows[0].id
         res.status(201)
 

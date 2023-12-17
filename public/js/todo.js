@@ -10,19 +10,21 @@ async function confirmCreateList(event){
 
     let form = event.target
     // console.log({form})
-    let response = await fetch(form.action, {
-        method: form.method,
+    let response = await fetch("/api/list", {
+        method: 'POST',
         // ASKASK
         // add-role.js 204 & student-profile 20 why no content-type?
         headers: {
-            "Content-Type": form.enctype,
+            "Content-Type": "application/json",
             Accept: "application/json",
           },
         // when use body: new FormData(form), JSON.stringify
-        body: new URLSearchParams(new FormData(form)),
+        // body: new URLSearchParams(new FormData(form)),
         // body: new FormData(form),
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
     });
-    console.log({response})
+    console.log('lol', {response})
+    // console.log('222', response.body)
 
     let result = await response.json()
     console.log('hahihi', {result})
