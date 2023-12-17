@@ -22,7 +22,7 @@ app.get('/todo',async (req,res)=>{
         
         //other code
         let result = await client.query (
-            'select * from to_do_list'
+            'select * from lists'
         );
         let lists = result.rows
         res.json({lists})
@@ -34,10 +34,13 @@ app.get('/todo',async (req,res)=>{
 
 // ASKASK
 // understand why this api needs to match with the form action api
-app.post('/api/list',async (req,res)=>{
+app.post('/api/list',async (req,res)=> {
     try{
         //other code
+        // console.log('aa', {req})
+        console.log('bb', req.query)
         let {name} = req.query
+        console.log('gg', {name})
         let result = await client.query(/* sql */
             `insert into
             lists (name, is_archived)
@@ -46,6 +49,7 @@ app.post('/api/list',async (req,res)=>{
             `, 
             [name, false]
         );
+        console.log('xcx', {result})
         const id = result.rows[0].id
         res.status(201)
 
@@ -62,10 +66,17 @@ app.use(express.static('public'))
 // handle 404 error
 app.use((req,res) => {
     res.status(404);
+    //STUDY, just copied
+    if (req.headers.accept == "application/json") {
+        res.json({
+          error: `Route not found, method: ${req.method}, url: ${req.url}`,
+        });
+      } else {
+        let file = path.resolve("public/html/404.html");
+        res.sendFile(file);
+      }
 
 })
-
-
 
 const PORT = 8220;
 app.listen(PORT, () => {

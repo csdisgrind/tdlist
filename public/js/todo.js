@@ -19,10 +19,9 @@ async function confirmCreateList(event){
             Accept: "application/json",
           },
         // when use body: new FormData(form), JSON.stringify
-        // body: new URLSearchParams(new FormData(form)),
-        body: new FormData(form),
+        body: new URLSearchParams(new FormData(form)),
+        // body: new FormData(form),
     });
-    // fail to console log res
     console.log({response})
 
     let result = await response.json()

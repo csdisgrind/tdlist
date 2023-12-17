@@ -1,10 +1,9 @@
-create table to_do_list (id serial primary key, name varchar(32) not null, is_archived boolean not null);
-create table to_do_items (
+create table lists (id serial primary key, name varchar(32) not null, is_archived boolean not null);
+create table items (
     id serial primary key
-    , to_do_list_id integer references to_do_list(id)
+    , lists_id integer references lists(id)
     , task_name varchar(255) not null
     , is_completed boolean not null
    );
 
-alter table to_do_items rename to items;
-alter table to_do_list rename to lists;
+alter table items alter column lists_id set not null;
