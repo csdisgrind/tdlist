@@ -5,3 +5,6 @@ create table to_do_items (
     , task_name varchar(255) not null
     , is_completed boolean not null
    );
+
+alter table to_do_items rename to items;
+alter table to_do_list rename to lists;

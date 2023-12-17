@@ -15,6 +15,7 @@ client.connect()
 app.get('/',(req,res)=>{
     res.sendFile(path.resolve('public/html', 'home.html'))
 });
+
 app.get('/todo',async (req,res)=>{
     try {
         console.log("getting to do list");
@@ -30,14 +31,16 @@ app.get('/todo',async (req,res)=>{
         res.json({err:"internal server error"})
     }
 });
-app.post('/todo',async (req,res)=>{
+
+// ASKASK
+// understand why this api needs to match with the form action api
+app.post('/api/list',async (req,res)=>{
     try{
-        
         //other code
         let {name} = req.query
         let result = await client.query(/* sql */
             `insert into
-            to_do_list (name, is_archived)
+            lists (name, is_archived)
             values ($1, $2) 
             returning id
             `, 

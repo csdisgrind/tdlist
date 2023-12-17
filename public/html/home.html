@@ -23,10 +23,12 @@
     <button id="new-item" class="btn btn-light">Add New To Do Item</button>
     <div class="content-container">
         <div class="new-list-form">
+
+            <!-- working -->
             <dialog id="newListDialog">
                 <h3>Add a New List</h3>
                 <form
-                    action="/list"
+                    action="/api/list"
                     method="POST"
                     enctype="application/x-www-form-urlencoded"
                     id="newListForm"
@@ -39,9 +41,11 @@
                         </label>
                     </div>
                     <input type="submit" id="submitNewListForm" />
-                    <button onclick="newListDialog.close()">Close</button>
+                    <button type="button" onclick="newListDialog.close()">Close</button>
                 </form>
             </dialog>
+
+
         </div>
         <div class="new-item-form">
             <dialog id="newItemDialog">
@@ -60,7 +64,7 @@
                         </label>
                     </div>
                     <input type="submit" id="submitNewItemForm" />
-                    <button onclick="newItemDialog.close()">Close</button>
+                    <button type="button" onclick="newItemDialog.close()">Close</button>
                 </form>
             </dialog>
         </div>

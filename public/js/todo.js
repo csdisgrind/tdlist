@@ -10,7 +10,7 @@ async function confirmCreateList(event){
 
     let form = event.target
     // console.log({form})
-    let res = await fetch(form.action, {
+    let response = await fetch(form.action, {
         method: form.method,
         // ASKASK
         // add-role.js 204 & student-profile 20 why no content-type?
@@ -19,19 +19,25 @@ async function confirmCreateList(event){
             Accept: "application/json",
           },
         // when use body: new FormData(form), JSON.stringify
-        body: new URLSearchParams(new FormData(form)),
+        // body: new URLSearchParams(new FormData(form)),
+        body: new FormData(form),
     });
     // fail to console log res
+    console.log({response})
 
-    let result = await res.json()
+    let result = await response.json()
     console.log('hahihi', {result})
 
-    if (result.error) {
-        console.log(result.error);
-        alert(result.error)
+    //ASKASK
+    // why no result.err but in HEYSLASH we result.error
+    if (result.err) {
+        console.log('eee', result.err);
+        alert(result.err)
         return
+    } else {
+        console.log('successfully created a new list');
     }
-    console.log('successfully created a new list');
+    
 }
 
 document.querySelector('#new-item').addEventListener('click', function(){
