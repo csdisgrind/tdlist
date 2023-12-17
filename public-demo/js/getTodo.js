@@ -7,5 +7,9 @@ async function getTodo() {
   }
   todoList = result.data;
   document.getElementById("todoList").innerHTML = "";
+  if (todoList.length == 0) {
+    showNoTodo();
+    return;
+  }
   todoList.map((todo, index) => createTodo(todo, index));
 }
