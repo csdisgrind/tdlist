@@ -1,5 +1,8 @@
+document.querySelector('.lists-container').hidden = true
+
 document.querySelector('#new-list').addEventListener('click', function() {
-    console.log('is clicked')
+    inputListMessage.textContent = ''
+    // console.log('is clicked')
     newListDialog.show()
 })
 
@@ -23,11 +26,61 @@ submitNewList.addEventListener('click', async function(event){
         console.log('successfully created a new list');
         inputListMessage.textContent = 'Created new list!'
     }
+    console.log('bbbb', result)
+
+    let node = document.querySelector('.lists-container').cloneNode(true)
+    node.hidden = false
+    node.querySelector('.list-name').textContent = listName.value + '(' + listName.id + ')'
+
+    // node.querySelector('.delete-list').addEventListener('click', function () {
+    //     console.log('what do you want to delete')
+    //     removeList(listName.id)
+    // })
+    document.querySelector('#contentContainer').appendChild(node)
 })
 
 async function showLists() {
-    
+    const listResult = await fetch('/list')
+    // console.log('rrrr', listResult);
+    let json = await listResult.json()
+    // console.log('ffaa', json)
+    // console.log('mmm', json.lists);
+    // let index = 1
+    for (list of json.lists) {
+        // console.log(index + 'kkk: ' + list.name)
+        let node = document.querySelector('.lists-container').cloneNode(true)
+        node.hidden = false
+        // console.log('lll', {node})
+        node.querySelector('.list-name').textContent = list.name + '(' + list.id + ')'
+        node.querySelector('.delete-list').addEventListener('click', () => {
+            console.log('deleting...', list.id, list.name)
+            removeList(list.id)
+        })
+        // console.log('zzz', {node});
+        // console.log('uuuu', node.textContent)
+        document.querySelector('#contentContainer').appendChild(node)
+        // index++
+    }
 }
+
+showLists()
+
+async function removeList(id) {
+    let res = await fetch('api/list/' + id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+        },
+    })
+    let json = await res.json()
+    if (json.error) {
+        alert(json.error)
+        return
+    }
+    window.location.reload()
+}
+
+
 
 // async function confirmCreateList(event){
 //     console.log('submitted 1')

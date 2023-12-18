@@ -16,16 +16,20 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
     />
+    <style>
+        .lists-container {
+            color: red;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
     <h1>My To Do Lists</h1>
     <button id="new-list" class="btn btn-light">Create New List</button>
     <p id="inputListMessage"></p>
     <button id="new-item" class="btn btn-light">Add New To Do Item</button>
-    <div class="content-container">
+    <div id="contentContainer">
         <div class="new-list-form">
-
-            <!-- working -->
             <dialog id="newListDialog">
                 <h3>Add a New List</h3>
                 <div id="addListContent">
@@ -38,9 +42,16 @@
                 <button id="submitNewList">Submit</button>
                 <button type="button" onclick="newListDialog.close()">Close</button>
             </dialog>
-
-
         </div>
+
+        <!-- show to do lists -->
+        <div class="lists-container">
+            <h5 class="list-name"></h5>
+            <button class="delete-list">DELETE</button>
+            <button id="updateList">Update</button>
+        </div>
+
+
         <div class="new-item-form">
             <dialog id="newItemDialog">
                 <h3>Add a New To Do Item</h3>
@@ -55,6 +66,10 @@
                 <button type="button" onclick="newItemDialog.close()">Close</button>
             </dialog>
         </div>
+
+        
+
+
     </div>
     <script src="/js/todo.js"></script>
 </body>

@@ -17,13 +17,13 @@ app.get('/',(req,res)=>{
     res.sendFile(path.resolve('public/html', 'home.html'))
 });
 
-app.get('/',async (req,res)=>{
+app.get('/list',async (req,res)=>{
     try {
         console.log("getting to do list");
         
         //other code
         let result = await client.query (
-            'select * from lists'
+            'select * from lists where is_archived = false order by id'
         );
         let lists = result.rows
         res.json({lists})
@@ -54,14 +54,34 @@ app.post('/api/list',async (req,res)=> {
         // console.log('xcx', {result})
         const id = result.rows[0].id
         res.status(201)
-
         res.json({id, name})
     }catch(err){
         console.log(err)
         res.json({err:"internal server error"})
     }
-
 });
+
+app.delete('/api/list/:id', async(req, res) => {
+    try {
+        const id = +req.params.id
+        if (!id) {
+            res.status(400)
+            res.json({error: "Invalid role id"})
+            return
+        }
+        const result = await client.query(
+            'delete from lists where id = $1', [id]
+        )
+        if (result.rowCount == 0) {
+            res.status(404)
+            res.json({error: "list not found"})
+        }
+        res.json({})
+    } catch (err) {
+        console.log(err)
+        res.json({err:"internal server error"})
+    }
+})
 
 app.use(express.static('public'))
 
