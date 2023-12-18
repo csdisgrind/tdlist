@@ -20,6 +20,7 @@
 <body>
     <h1>My To Do Lists</h1>
     <button id="new-list" class="btn btn-light">Create New List</button>
+    <p id="inputListMessage"></p>
     <button id="new-item" class="btn btn-light">Add New To Do Item</button>
     <div class="content-container">
         <div class="new-list-form">
@@ -27,19 +28,15 @@
             <!-- working -->
             <dialog id="newListDialog">
                 <h3>Add a New List</h3>
-                <form
-                    id="newListForm"
-                    onsubmit="confirmCreateList(event)"
-                >
-                    <div id="addListContent">
-                        <label>
-                            Please Enter a List Name:
-                            <input type="text" id="listName" name="name"/>
-                        </label>
-                    </div>
-                    <input type="submit" id="submitNewListForm" />
-                    <button type="button" onclick="newListDialog.close()">Close</button>
-                </form>
+                <div id="addListContent">
+                    <label>
+                        Please Enter a List Name:
+                        <input type="text" id="listName" name="inputName"/>
+                    </label>
+                </div>
+                
+                <button id="submitNewList">Submit</button>
+                <button type="button" onclick="newListDialog.close()">Close</button>
             </dialog>
 
 
@@ -47,22 +44,15 @@
         <div class="new-item-form">
             <dialog id="newItemDialog">
                 <h3>Add a New To Do Item</h3>
-                <form
-                    action="/item"
-                    method="POST"
-                    enctype="application/x-www-form-urlencoded"
-                    id="newItemForm"
-                    onsubmit="confirmCreateItem(event)"
-                >
-                    <div id="addItemContent">
-                        <label>
-                            Please enter a new item to do:
-                            <input type="text" id="itemName" />
-                        </label>
-                    </div>
-                    <input type="submit" id="submitNewItemForm" />
-                    <button type="button" onclick="newItemDialog.close()">Close</button>
-                </form>
+                <div id="addItemContent">
+                    <label>
+                        Please enter a new item to do:
+                        <input type="text" id="itemName" name="inputValue"/>
+                    </label>
+                </div>
+                <input type="submit" id="submitNewItemForm" />
+                <p id="inputItemMessage"></p>
+                <button type="button" onclick="newItemDialog.close()">Close</button>
             </dialog>
         </div>
     </div>

@@ -17,7 +17,7 @@ app.get('/',(req,res)=>{
     res.sendFile(path.resolve('public/html', 'home.html'))
 });
 
-app.get('/todo',async (req,res)=>{
+app.get('/',async (req,res)=>{
     try {
         console.log("getting to do list");
         
@@ -38,11 +38,11 @@ app.get('/todo',async (req,res)=>{
 app.post('/api/list',async (req,res)=> {
     try{
         //other code
-        console.log('aa', req)
-        console.log('bb', req.query)
-        console.log('by', req.body)
-        let {name} = req.body
-        console.log('gg', {name})
+        // console.log('aa', req)
+        // console.log('bb', req.query)
+        // console.log('by', req.body)
+        let {name} = req.query
+        // console.log('gg', {name})
         let result = await client.query(/* sql */
             `insert into
             lists (name, is_archived)
