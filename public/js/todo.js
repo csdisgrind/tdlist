@@ -30,13 +30,16 @@ submitNewList.addEventListener('click', async function(event){
 
     let node = document.querySelector('.lists-container').cloneNode(true)
     node.hidden = false
-    node.querySelector('.list-name').textContent = listName.value + '(' + listName.id + ')'
+    node.querySelector('.list-name').textContent = listName.value
 
     // node.querySelector('.delete-list').addEventListener('click', function () {
     //     console.log('what do you want to delete')
     //     removeList(listName.id)
     // })
     document.querySelector('#contentContainer').appendChild(node)
+
+    //ASKASK
+    // how to reset input field
 })
 
 async function showLists() {
@@ -47,14 +50,18 @@ async function showLists() {
     // console.log('mmm', json.lists);
     // let index = 1
     for (list of json.lists) {
+        //ASKASK why have to decalre id
+        const id = list.id
+        const name = list.name
+        // console.log('jfjfjf', list)
         // console.log(index + 'kkk: ' + list.name)
         let node = document.querySelector('.lists-container').cloneNode(true)
         node.hidden = false
         // console.log('lll', {node})
-        node.querySelector('.list-name').textContent = list.name + '(' + list.id + ')'
-        node.querySelector('.delete-list').addEventListener('click', () => {
-            console.log('deleting...', list.id, list.name)
-            removeList(list.id)
+        node.querySelector('.list-name').textContent = name
+        node.querySelector('.delete-list').addEventListener('click', function () {
+            console.log('deleting...', id, name)
+            removeList(id)
         })
         // console.log('zzz', {node});
         // console.log('uuuu', node.textContent)
