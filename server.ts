@@ -69,6 +69,7 @@ app.delete('/api/list/:id', async(req, res) => {
             res.json({error: "Invalid role id"})
             return
         }
+        // todo change to archive
         const result = await client.query(
             'delete from lists where id = $1', [id]
         )
@@ -80,6 +81,29 @@ app.delete('/api/list/:id', async(req, res) => {
     } catch (err) {
         console.log(err)
         res.json({err:"internal server error"})
+    }
+})
+
+app.patch('/api/list/:id', async(req, res) => {
+    try {
+        console.log('nnn', req)
+        console.log('vvv', req.body)
+        console.log('qqq', req.query)
+        const id = +req.params.id
+        if (!id) {
+            res.status(400)
+            res.json({error: 'Invalid role id'})
+            return
+        }
+        const result = await client.query(
+            'update lists set name = $1 where id = $2', ['chris', id]
+        )
+        if (result.rowCount == 0) {
+            res.status(404)
+            res.json({error: "List not found! Update failed!"})
+        }
+    } catch (err) {
+        res.json({err: 'internal server error'})
     }
 })
 

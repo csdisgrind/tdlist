@@ -1,5 +1,9 @@
 document.querySelector('.lists-container').hidden = true
 
+//why cannot get this
+// let newListName = updateListName.value
+// console.log('ooooo', newListName)
+
 document.querySelector('#new-list').addEventListener('click', function() {
     inputListMessage.textContent = ''
     // console.log('is clicked')
@@ -63,6 +67,18 @@ async function showLists() {
             console.log('deleting...', id, name)
             removeList(id)
         })
+        node.querySelector('.update-list').addEventListener('click', async function(event) {
+            console.log('updating...', id, name)
+            // event.preventDefault()
+
+            // const updateResponse = await fetch('/api/list' + id, {
+            //     method: 'PATCH',
+            // })
+            // console.log('ffff', updateResponse)
+            // const updateResult = await updateResponse.json()
+            // updateList(id, updateListName.value)
+            updateList(id, updateListName.value)
+        })
         // console.log('zzz', {node});
         // console.log('uuuu', node.textContent)
         document.querySelector('#contentContainer').appendChild(node)
@@ -85,6 +101,17 @@ async function removeList(id) {
         return
     }
     window.location.reload()
+}
+
+
+
+async function updateList(id, name) {
+    console.log('cdcdc', name)
+    console.log('lets see if ok...');
+    const response = await fetch('api/list/' + id, {
+        method: 'PATCH',
+    })
+    console.log('upupp', {response});
 }
 
 
@@ -129,6 +156,13 @@ async function removeList(id) {
     
 // }
 
+
+
+
+
+
+
+// not yet
 document.querySelector('#new-item').addEventListener('click', function(){
     console.log('adding new item...')
     newItemDialog.show()
