@@ -84,9 +84,9 @@ app.delete('/api/list/:id', async(req, res) => {
     }
 })
 
-app.patch('/api/list/:id', async(req, res) => {
+app.patch('/api/list/:id/:name', async(req, res) => {
     try {
-        console.log('nnn', req)
+        console.log('nnn', {req})
         console.log('vvv', req.body)
         console.log('qqq', req.query)
         const id = +req.params.id
@@ -95,12 +95,20 @@ app.patch('/api/list/:id', async(req, res) => {
             res.json({error: 'Invalid role id'})
             return
         }
+        const name = req.params.name
+        console.log('nanana', name)
         const result = await client.query(
-            'update lists set name = $1 where id = $2', ['chris', id]
+            'update lists set name = $1 where id = $2', [name, id]
         )
+
+        console.log('rr', {result})
         if (result.rowCount == 0) {
             res.status(404)
             res.json({error: "List not found! Update failed!"})
+        } else {
+            //ASKASK
+            // what does this line do, now line after response works
+            res.json({success: true, id, name})
         }
     } catch (err) {
         res.json({err: 'internal server error'})

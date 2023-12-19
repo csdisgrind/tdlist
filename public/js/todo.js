@@ -52,24 +52,20 @@ async function showLists() {
     let json = await listResult.json()
     // console.log('ffaa', json)
     // console.log('mmm', json.lists);
-    // let index = 1
-    for (list of json.lists) {
-        //ASKASK why have to decalre id
-        const id = list.id
-        const name = list.name
+    for (let list of json.lists) {
         // console.log('jfjfjf', list)
-        // console.log(index + 'kkk: ' + list.name)
         let node = document.querySelector('.lists-container').cloneNode(true)
         node.hidden = false
         // console.log('lll', {node})
-        node.querySelector('.list-name').textContent = name
+        node.querySelector('.list-name').textContent = list.name
+        // console.log("list.id",list.id,list.name);
         node.querySelector('.delete-list').addEventListener('click', function () {
-            console.log('deleting...', id, name)
-            removeList(id)
+            console.log('deleting...', list.id, list.name)
+            removeList(list.id)
         })
-        node.querySelector('.update-list').addEventListener('click', async function(event) {
-            console.log('updating...', id, name)
-            // event.preventDefault()
+        // console.log("list.id2",list.id,list.name);
+        node.querySelector('.update-list').addEventListener('click', function() {
+            console.log('updating...', list.id, list.name)
 
             // const updateResponse = await fetch('/api/list' + id, {
             //     method: 'PATCH',
@@ -77,19 +73,20 @@ async function showLists() {
             // console.log('ffff', updateResponse)
             // const updateResult = await updateResponse.json()
             // updateList(id, updateListName.value)
-            updateList(id, updateListName.value)
+            updateList(list.id, updateListName.value)
         })
         // console.log('zzz', {node});
         // console.log('uuuu', node.textContent)
+      
         document.querySelector('#contentContainer').appendChild(node)
-        // index++
     }
 }
 
 showLists()
 
 async function removeList(id) {
-    let res = await fetch('api/list/' + id, {
+    // console.log({id});
+    let res = await fetch('/api/list/' + id, {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
@@ -103,15 +100,18 @@ async function removeList(id) {
     window.location.reload()
 }
 
-
-
 async function updateList(id, name) {
     console.log('cdcdc', name)
-    console.log('lets see if ok...');
-    const response = await fetch('api/list/' + id, {
+    // console.log('lets see if ok...');
+
+    // continue
+    const response = await fetch('/api/list/' + id + '/' + name, {
         method: 'PATCH',
+        // body: JSON.stringify(name + '123'),
     })
-    console.log('upupp', {response});
+    // console.log('upupp', {response});
+    // console.log('zzzooo', response.body)
+    window.location.reload()
 }
 
 
